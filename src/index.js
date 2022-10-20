@@ -1,17 +1,74 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+let ele = document.querySelector('#root')
+let root = ReactDOM.createRoot(ele)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+class App extends React.Component {
+
+    // variables
+    // action 
+    // render html
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            latitude: null,
+            longitude: null
+        };
+
+        window.navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                //this.state.latitude = pos.coords.latitude
+                this.setState({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude
+                });
+            },
+            (err) => {
+                console.log(err)
+            }
+
+        )
+
+    }
+
+    // jsx
+    render() {
+        return <div>
+            <h1>Latitute:{this.state.latitude}</h1>
+            <h1>Longitude:{this.state.longitude}</h1>
+        </div>;
+    }
+
+
+}
+
+
+
+
+
+
+// function App() {
+
+//     let latitude;
+//     window.navigator.geolocation.getCurrentPosition(function(pos){
+//         console.log(pos)
+//         latitude = pos.coords.latitude
+
+//     },function(err){
+//         console.log(err)
+//     })
+
+//     return <h1>Latitute:{latitude}</h1>
+
+// }
+root.render(<App />)
+
+// functional ----jsx create render
+// class ---
+
+//1 jsx create render
+//2 state maintain , html
+//3 point of execution --- asyn manage
